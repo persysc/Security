@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.ysc.dao.AdminPermissionMapper">
+    <resultMap id="BaseResultMap" type="pers.ysc.entity.Permission">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="value" jdbcType="INTEGER" property="value"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    <select id="getPermissionList" resultMap="BaseResultMap">
+        SELECT up.*
+        FROM ums_permission up
+                 LEFT JOIN ums_role_permission_relation urpr ON up.id = urpr.permission_id
+                 LEFT JOIN ums_role ur ON urpr.role_id = ur.id
+                 LEFT JOIN ums_admin_role_relation p ON ur.id = p.role_id
+                 LEFT JOIN ums_admin ua ON p.admin_id = ua.id
+        WHERE ua.username = #{username}
+    </select>
+</mapper>

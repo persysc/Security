@@ -1,0 +1,29 @@
+#spring:
+#  security:
+#    user:
+#      name: admin
+#      password: 123
+server:
+  port: 8888
+spring:
+  datasource:
+    username: root
+    password:
+    url: jdbc:mysql://localhost:3306/security?serverTimezone=UTC&Unicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+
+  # 自定义redis key
+redis:
+  key:
+    prefix:
+      authCode: "tel:Code:"
+    expire:
+      authCode: 120 # 验证码超期时间
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: slyzscxbgqydwg #JWT加解密使用的密钥
+  expiration: 7200 #JWT的超期限时间(60*60*2)
+  tokenHead: "Bearer "   #JWT负载中拿到开头
